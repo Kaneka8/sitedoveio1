@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column; /* Para empilhar imagem e texto */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 100vh; /* Para ocupar toda a altura da tela */
+    margin: 0; /* Remove margens padrão */
+}
+
+.imagem-arredondada {
+    width: 200px; /* Ajuste o tamanho conforme necessário */
+    height: 200px; /* Ajuste o tamanho conforme necessário */
+    border-radius: 50%; /* Para deixar arredondada */
+    object-fit: cover; /* Para manter a proporção da imagem */
+    display: block;
+    margin: 10px 0; /* Espaço acima e abaixo da imagem */
+    position: relative;
+    top: 100px; /* Distância que a imagem vai descer */
+
+}
+
+h1 {
+    text-align: center; /* Centraliza o texto */
+    margin: 20px 0; /* Espaço acima e abaixo do título */
+    color: #f80000;
+    position: relative;
+    top: 90px; /* Distância que a imagem vai descer */
+}
+
+/* Estilo para o h2 (preço do lanche) */
+h2 {
+    font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
+    color: #000000; /* Cor do texto */
+    margin: 10px 0; /* Espaço acima e abaixo do h2 */
+    margin-right: 700px; /* Alinha o texto à esquerda, se necessário */
+    position: relative;
+    top: 300px; /* Distância que a imagem vai descer */
+}
+
+.caixa-dinheiro {
+    background: #1aff00;
+    padding: 10px 430px; /* Ajuste a largura do padding se necessário */
+    color: #f5f5f5;
+    margin: 20px 0; /* Espaço acima e abaixo da caixa de dinheiro */
+    position: relative;
+    top: 100px; /* Distância que a imagem vai descer */
+}
+
+.imagem-lanche {
+    width: 350px; /* Ajuste o tamanho conforme necessário */
+    height: 350px; 
+    margin-top: 10px; /* Espaço acima da imagem do lanche */
+    display: block; /* Garante que a imagem ocupe sua própria linha */
+    margin-right: 700px; /* Espaço à direita da imagem do lanche */
+    position: relative;
+    top: 100px; /* Distância que a imagem vai descer */
+}
+
+.header {
+    background-color: #008CBA;
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 0;
+    position: relative;
+    top: 200px; /* Distância que a imagem vai descer */
+}
+
+.header a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    position: relative;
+    top: 200px; /* Distância que a imagem vai descer */
+}
+
+.header a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.header a.active {
+    background-color: #ddd;
+    color: black;
+}
+
+.header-right {
+    float: right;
+}
