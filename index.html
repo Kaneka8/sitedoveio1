@@ -1,102 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gastando o dinheiro do Veio da Havan</title>
-    <style>
-        .contador {
-            display: flex;
-            align-items: center;
-            margin-top: 20px; /* Adiciona um espaçamento acima do contador */
-        }
-        .botao {
-            cursor: pointer;
-            padding: 10px;
-            margin: 0 5px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        .quantidade {
-            width: 50px;
-            text-align: center;
-        }
-    </style>
-    <script>
-        let dinheiro = 12000000000000; // Dinheiro inicial
-        const precoProduto = 16.90; // Preço do produto
-        let quantidadeProdutos = 0; // Inicializa a quantidade de produtos
-
-        function atualizarDinheiro() {
-            document.querySelector('.caixa-dinheiro h3').innerText = dinheiro.toFixed(2);
-        }
-
-        function atualizarQuantidade() {
-            document.querySelector('.quantidade').value = quantidadeProdutos;
-        }
-
-        function adicionar() {
-            // Adiciona 1 produto
-            quantidadeProdutos += 1; // Aumenta a quantidade de produtos
-            const totalCompra = precoProduto; // O custo de um produto
-            if (dinheiro >= totalCompra) {
-                dinheiro -= totalCompra; // Diminui o dinheiro pelo preço do produto
-                atualizarDinheiro();
-                atualizarQuantidade();
-                
-            } else {
-                quantidadeProdutos -= 1; // Reverte a adição se não houver dinheiro suficiente
-                alert('Dinheiro insuficiente para a compra.');
-            }
-        }
-
-        function remover() {
-            // Remove 1 produto
-            if (quantidadeProdutos > 0) { // Verifica se há produtos suficientes para remover
-                quantidadeProdutos -= 1; // Diminui a quantidade de produtos
-                const totalVenda = precoProduto; // O valor que será adicionado de volta ao dinheiro
-                dinheiro += totalVenda; // Aumenta o dinheiro pelo preço do produto
-                atualizarDinheiro();
-                atualizarQuantidade();
-               
-            } else {
-                alert('Você não tem produtos suficientes para remover.');
-            }
-        }
-
-        function alterarQuantidade(delta) {
-            if (delta === 1) {
-                adicionar();
-            } else if (delta === -1) {
-                remover();
-            }
-        }
-
-        window.onload = function() {
-            atualizarDinheiro(); // Atualiza o dinheiro na carga da página
-            atualizarQuantidade(); // Atualiza a quantidade de produtos na carga da página
-        };
-    </script>
+    <title>Veio da Havan site</title>
 </head>
 <body>
-    
-    <img src="havanveio.png" alt="Imagem Arredondada" class="imagem-arredondada">
+    <img src="./img/havanveio.png" alt="veiohavan" class="imagem-arredondada">
     <h1>Gastando o dinheiro do Veio da Havan</h1>
-    
-    <div class="caixa-dinheiro">
-        <h3>1.200.000,00</h3>
+    <div style="background: #00fa00; padding: 20px 50px; color: #fff;">
+        <h2>12.000.000.000.000</h2>
     </div>
-
-    <img src="big_mac.png" alt="Imagem-lanche" class="imagem-lanche">
-    <h2>R$ 16,90</h2>
-
-    <div class="contador">
-        <button class="botao" onclick="alterarQuantidade(-1)">-</button>
-        <input type="text" id="quantidade" class="quantidade" value="0" readonly>
-        <button class="botao" onclick="alterarQuantidade(1)">+</button>
-    </div>
+    <table border="1">
+        <tr>
+            <!--quadro do bigmac -->
+            <td>
+                <img src="./img/big_mac.png" alt="big_mac" class="imagem-big">
+                <p>R$ 16,90</p>
+                <div class="contador">
+                    <input type="number" id="qtd1" class="quantidade" value="0" >
+                </div>
+            </td>
+            <!--quadro do adidas -->
+            <td><img src="./img/adidas.png" alt="samba" class="imagem-samba">
+                <p>R$ 16,90</p><div class="contador">
+                <input type="number" id="quantidade" class="quantidade" value="0">
+            </div></td>
+            <!--quadro do pringles -->            
+            <td><img src="./img/pringles.png" alt="pringles" class="imagem-pringles">
+                <p>R$ 16,90</p><div class="contador">
+                <input type="number" id="quantidade" class="quantidade" value="0">
+            </div></td>
+        </tr>
+        <tr>
+            <!--quadro do rolex -->
+            <td><img src="./img/rolex.png" alt="rolex" class="imagme-rolex">
+                <p>R$ 16,90</p><div class="contador">
+                <input type="number" id="quantidade" class="quantidade" value="0">
+            </div></td>
+            <!--quadro do pc -->
+            <td><img src="./img/pc.png" alt="pc" class="imagem-pc">
+                <p>R$ 16,90</p><div class="contador">
+                <input type="number" id="quantidade" class="quantidade" value="0">
+            </div></td>
+            <!--quadro do maclaren -->
+            <td><img src="./img/McLaren.jpg" alt="McLaren" class="imagem-McLaren">
+                <p>R$ 16,90</p><div class="contador">
+                <input type="number" id="quantidade" class="quantidade" value="0" >
+            </div></td>
+        </tr>
+        <tr>
+            <!--quadro do finchland -->
+            <td><img src="./img/Finchland.png" alt="rolex" class="imagme-mansao">
+                <p>R$ 16,90</p><div class="contador">
+                <input type="number" id="quantidade" class="quantidade" value="0">
+            </div></td>
+            <!--quadro do aviao -->
+            <td><img src="./img/aviao.png" alt="aviao" class="imagem-aviao">
+                <p>R$ 16,90</p><div class="contador">
+                <input type="number" id="quantidade" class="quantidade" value="0">
+            </div></td>
+            <!--quadro do ouro -->
+            <td><img src="./img/ouro.png" alt="ouro" class="imagem-ouro">
+                <p>R$ 16,90</p><div class="contador">
+                <input type="number" id="quantidade" class="quantidade" value="0">
+            </div></td>
+        </tr>
+        
 </body>
 </html>
