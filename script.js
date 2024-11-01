@@ -62,5 +62,10 @@ inputs.forEach(input => {
     input.addEventListener('input', calcularTotal);
 });
 
+
+
+
 // Chame a função para calcular o total inicialmente
 calcularTotal();
+
+fetchItens()
