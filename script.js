@@ -1,5 +1,5 @@
-// Selecione todos os campos de input
-const inputs = document.querySelectorAll('.quantidade');
+// URL da API Django (altere conforme necessário)
+const apiUrl = 'http://127.0.0.1:8000/itens/';
 
 // Selecione o elemento que exibe o total
 const totalElement = document.getElementById('total');
@@ -12,6 +12,9 @@ let total = 12000000000000; // Total inicial do Veio da Havan
 
 // Função para calcular o total
 function calcularTotal() {
+    // Selecione todos os campos de input novamente, pois eles podem ter mudado
+    const inputs = document.querySelectorAll('.quantidade');
+
     // Reiniciar o total de gastos a cada cálculo
     let totalGastos = 0;
 
@@ -57,15 +60,45 @@ function getPreco(index) {
     return precos[index];
 }
 
-// Adicione um evento de mudança a cada campo de input
-inputs.forEach(input => {
-    input.addEventListener('input', calcularTotal);
-});
+// Função para carregar os produtos e atualizar a tabela
+async function carregarProdutos() {
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Erro ao carregar produtos');
+        }
+        const produtos = await response.json();
+        const tabelaBody = document.querySelector('#itensTabela tbody');
+        tabelaBody.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
 
+        // Para cada produto, cria o HTML dinâmico
+        produtos.forEach(produto => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${produto.id}</td>
+                <td>${produto.name}</td>
+                <td>R$ ${produto.price}</td>
+                <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"></td>
+                <td>
+                    <div class="contador">
+                        <input type="number" class="quantidade" value="0" min="0">
+                    </div>
+                </td>
+            `;
+            tabelaBody.appendChild(row);
+        });
 
+        // Adicione um evento de mudança a cada campo de input após carregar os produtos
+        const inputs = document.querySelectorAll('.quantidade');
+        inputs.forEach(input => {
+            input.addEventListener('input', calcularTotal);
+        });
 
+    } catch (error) {
+        mensagemErroElement.innerText = error.message;
+        mensagemErroElement.style.display = 'block';
+    }
+}
 
-// Chame a função para calcular o total inicialmente
-calcularTotal();
-
-fetchItens()
+// Chama a função para carregar os produtos quando a página for carregada
+window.onload = carregarProdutos;
