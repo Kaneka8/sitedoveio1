@@ -24,7 +24,7 @@ function calcularTotal() {
         const produtoId = input.dataset.id; // Pega o ID do produto
 
         // Encontrar o produto correspondente
-        const produto = produtos.find(p => p.id == produtoId);
+        const Produtos = Produtos.find(p => p.id == produtoId);
         if (produto) {
             totalGastos += produto.price * quantidade; // Acumular os gastos
         }
@@ -63,8 +63,8 @@ async function carregarProdutos() {
             throw new Error('Erro ao carregar produtos');
         }
         produtos = await response.json(); // Armazena os produtos na variável global
-        const tabelaProdutos = document.getElementById('tabelaProdutos').querySelector('tbody');
-        tabelaProdutos.innerHTML = ''; // Limpa a tabela antes de preencher
+        const itens_produtos = document.getElementById('itens_produtos').querySelector('tbody');
+        itens_produtos.innerHTML = ''; // Limpa a tabela antes de preencher
 
         produtos.forEach(produto => {
             const linha = document.createElement('tr');
