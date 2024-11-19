@@ -7,7 +7,7 @@ const totalElement = document.getElementById('total');
 const mensagemErroElement = document.getElementById('mensagemErro');
 
 // Defina o total inicial
-let total = 12000000000000; // Total inicial do Veio da Havan
+let total = 12000000000; // Total inicial do Veio da Havan
 let produtos = []; // Array para armazenar os produtos
 
 // Função para calcular o total
@@ -69,13 +69,12 @@ async function carregarProdutos() {
         produtos.forEach(produto => {
             const linha = document.createElement('tr');
             linha.innerHTML = `
-                        <td>${produto.id}</td>
                         <td>${produto.name}</td>
-                        <td>R$ ${produto.price.toFixed(2)}</td>
-                        <td><img src="${produto.image}" alt="${produto.name}" style="width: 50px; height: auto;"></td>
+                        <td>R$ ${produto.price}</td>
+                        <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"></td>
                         <td><input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"></td>
                     `;
-            tabelaProdutos.appendChild(linha);
+            itens_produtos.appendChild(linha);
         });
     } catch (error) {
         console.error('Erro:', error);
