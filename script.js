@@ -69,10 +69,10 @@ async function carregarProdutos() {
         produtos.forEach(produto => {
             const linha = document.createElement('tr');
             linha.innerHTML = `
-                        <td>${produto.name}</td>
-                        <td>R$ ${produto.price}</td>
-                        <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"></td>
-                        <td><input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"></td>
+                    <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"><br>           
+                    ${produto.name}<br>
+                    R$ ${produto.price}<br>
+                    <input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"></td>
                     `;
             itens_produtos.appendChild(linha);
         });
