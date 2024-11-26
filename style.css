@@ -59,27 +59,19 @@ input[type="number"] {
 table {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); 
-    grid-gap: 10px 10px;
-    display: grid
-    ; */
-    /* grid-template-columns: min-content; */
-    /* grid-gap: 10px 10px; */
-    align-content: center;
-    justify-content: space-around;
-    align-items: center;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+    gap: 16px; /* Espaçamento entre os itens */
     justify-items: center;
+    padding: 16px;
+    box-sizing: border-box;
 }
-
-.grid-item {
-    background-color: #f9f9f9; /* Cor de fundo para os itens do grid */
-    border-radius: 10px; /* Bordas arredondadas */
-    padding: 15px; /* Espaçamento interno dos itens */
-    text-align: center; /* Alinhamento do texto no centro */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
-    transition: transform 0.2s; /* Efeito de transição ao passar o mouse */
-}
-
-.grid-item:hover {
-    transform: scale(1.05); /* Aumenta o tamanho do item ao passar o mouse */
+td {
+    background: #f3f3f3;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -66,16 +66,23 @@ async function carregarProdutos() {
         const itens_produtos = document.getElementById('itens_produtos').querySelector('tbody');
         itens_produtos.innerHTML = ''; // Limpa a tabela antes de preencher
 
-        produtos.forEach(produto => {
+        produtos.forEach((produto) => {
             const linha = document.createElement('tr');
-            linha.innerHTML = `
-                    <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"><br>           
-                    ${produto.name}<br>
-                    R$ ${produto.price}<br>
-                    <input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"></td>
-                    `;
-            itens_produtos.appendChild(linha);
+
+            for (let i = 0; i < 3; i++) {
+                const cell = document.createElement('td');
+                cell.innerHTML = `
+                        <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"><br>           
+                        ${produto.name}<br>
+                        R$ ${produto.price}<br>
+                        <input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"></td>
+                        `;
+                itens_produtos.appendChild(cell);
+            }
+                    
         });
+
+
     } catch (error) {
         console.error('Erro:', error);
         mensagemErroElement.textContent = 'Erro ao carregar produtos.';
