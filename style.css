@@ -15,7 +15,11 @@
     justify-content: center;
 }
 
-h1, p{
+p {
+    text-transform: capitalize;
+}
+
+h1 {
     text-align: center;
 }
 
@@ -71,9 +75,9 @@ td {
 
 td img {
     
-    display: list-item;
-    margin-left: auto;
-    margin-right: auto;
+    display: block;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 input[type="number"] {
