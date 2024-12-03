@@ -1,58 +1,61 @@
 const apiUrl = 'http://127.0.0.1:8000/itens/';
-
-// Selecione o elemento que exibe o total
 const totalElement = document.getElementById('total');
-
-// Selecione o elemento que exibe a mensagem de erro
 const mensagemErroElement = document.getElementById('mensagemErro');
+let total = 12000000000000; // Total inicial do Veio da Havan
+let produtos = [];
 
-// Defina o total inicial
-let total = 12000000000; // Total inicial do Veio da Havan
-let produtos = []; // Array para armazenar os produtos
+// Buscar produtos da API
+fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+        produtos = data;
+        renderizarProdutos();
+    })
+    .catch(error => console.error('Erro ao carregar os produtos:', error));
 
-// Função para calcular o total
+// Renderizar os produtos no DOM
+function renderizarProdutos() {
+    const container = document.getElementById('produtos');
+    produtos.forEach(produto => {
+        const produtoHTML = `
+            <div>
+                <span>${produto.name} - R$ ${produto.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                <input type="number" data-id="${produto.id}" min="0" placeholder="Quantidade">
+            </div>
+        `;
+        container.innerHTML += produtoHTML;
+    });
+
+    // Adicionar eventos para atualizar o total
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', calcularTotal);
+    });
+}
+
+// Calcular o total gasto
 function calcularTotal() {
-    // Selecione todos os campos de input novamente, pois eles podem ter mudado
     const inputs = document.querySelectorAll('input[type="number"]');
-
-    // Reiniciar o total de gastos a cada cálculo
     let totalGastos = 0;
 
-    // Calcular os gastos com base nas quantidades inseridas
     inputs.forEach(input => {
-        const quantidade = parseInt(input.value) || 0; // Garantir que seja um número
-        const produtoId = input.dataset.id; // Pega o ID do produto
-
-        // Encontrar o produto correspondente
-        const Produtos = Produtos.find(p => p.id == produtoId);
+        const quantidade = parseInt(input.value) || 0;
+        const produtoId = input.dataset.id;
+        const produto = produtos.find(p => p.id == produtoId);
         if (produto) {
-            totalGastos += produto.price * quantidade; // Acumular os gastos
+            totalGastos += produto.price * quantidade;
         }
     });
 
-    // Verificar se o total gasto excede o total disponível
     if (totalGastos > total) {
-        // Se o total gasto exceder o total, reiniciar as quantidades
-        inputs.forEach(input => {
-            input.value = 0; // Reinicia as quantidades
-        });
         mensagemErroElement.textContent = "Você não pode gastar mais do que o total disponível!";
-        mensagemErroElement.style.display = 'block'; // Exibir a mensagem de erro
-        totalGastos = 0; // Reiniciar totalGastos
+        mensagemErroElement.style.display = 'block';
+        totalGastos = 0;
+        inputs.forEach(input => (input.value = 0));
     } else {
-        mensagemErroElement.style.display = 'none'; // Ocultar a mensagem de erro
+        mensagemErroElement.style.display = 'none';
     }
 
-    // Atualizar o total restante
-    total -= totalGastos;
-
-    // Garantir que o total não fique negativo
-    if (total < 0) {
-        total = 0; // Se o total ficar negativo, reiniciar para 0
-    }
-
-    // Atualizar o elemento que exibe o total
-    totalElement.textContent = `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    totalElement.textContent = `R$ ${(total - totalGastos).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 // Função para carregar os produtos da API
@@ -66,20 +69,43 @@ async function carregarProdutos() {
         const itens_produtos = document.getElementById('itens_produtos').querySelector('tbody');
         itens_produtos.innerHTML = ''; // Limpa a tabela antes de preencher
 
-        produtos.forEach((produto) => {
-            const linha = document.createElement('tr');
+        // produtos.forEach((produto) => {
+        //     const linha = document.createElement('tr');
 
-            for (let i = 0; i < 3; i++) {
-                const cell = document.createElement('td');
-                cell.innerHTML = `
-                        <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"><br>           
-                        ${produto.name}<br>
-                        R$ ${produto.price}<br>
-                        <input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"></td>
-                        `;
-                itens_produtos.appendChild(cell);
-            }
+        //     for (let i = 0; i < 3; i++) {
+        //         const cell = document.createElement('td');
+        //         cell.innerHTML = `
+        //                 <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"><br>           
+        //                 ${produto.name}<br>
+        //                 R$ ${produto.price}<br>
+        //                 <input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"></td>
+        //                 `;
+        //         itens_produtos.appendChild(cell);
+        //     }
                     
+        // });
+
+        let linha = document.createElement("tr");
+        itens_produtos.appendChild(linha);
+        
+        produtos.forEach((produto, index) => {
+            // Cria uma nova coluna (td) a cada 3 produtos
+            if (index % 3 === 0) {
+                const coluna = document.createElement("td");
+                linha.appendChild(coluna);
+            }
+        
+            // Adiciona o produto à última coluna criada
+            const colunaAtual = linha.lastChild;
+        
+            const produtoInfo = document.createElement("div");
+            produtoInfo.innerHTML = `
+                <img src="${produto.image_url}" alt="${produto.name}" <br>           
+                ${produto.name}<br>
+                R$ ${produto.price}<br>
+                <input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"><br><br>
+            `;
+            colunaAtual.appendChild(produtoInfo);
         });
 
 
