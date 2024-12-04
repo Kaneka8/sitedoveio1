@@ -20,7 +20,9 @@ function renderizarProdutos() {
         const produtoHTML = `
             <div>
                 <span>${produto.name} - R$ ${produto.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
-                <input type="number" data-id="${produto.id}" min="0" placeholder="Quantidade">
+                <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
+                <input type="number" data-id="${produto.id}" min="0" placeholder="Quantidade" value="0">
+                <button onclick="alterarQuantidade(${produto.id}, -1)">-</button>
             </div>
         `;
         container.innerHTML += produtoHTML;
@@ -30,6 +32,15 @@ function renderizarProdutos() {
     document.querySelectorAll('input[type="number"]').forEach(input => {
         input.addEventListener('input', calcularTotal);
     });
+}
+
+// Alterar a quantidade de um produto
+function alterarQuantidade(produtoId, delta) {
+    const input = document.querySelector(`input[data-id="${produtoId}"]`);
+    let quantidade = parseInt(input.value) || 0; // Garante que quantidade seja um número
+    quantidade += delta;
+    input.value = quantidade >= 0 ? quantidade : 0; // Impede valores negativos
+    calcularTotal(); // Atualiza o total após a alteração
 }
 
 // Calcular o total gasto
@@ -69,22 +80,6 @@ async function carregarProdutos() {
         const itens_produtos = document.getElementById('itens_produtos').querySelector('tbody');
         itens_produtos.innerHTML = ''; // Limpa a tabela antes de preencher
 
-        // produtos.forEach((produto) => {
-        //     const linha = document.createElement('tr');
-
-        //     for (let i = 0; i < 3; i++) {
-        //         const cell = document.createElement('td');
-        //         cell.innerHTML = `
-        //                 <td><img src="${produto.image_url}" alt="${produto.name}" style="width: 50px; height: auto;"><br>           
-        //                 ${produto.name}<br>
-        //                 R$ ${produto.price}<br>
-        //                 <input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"></td>
-        //                 `;
-        //         itens_produtos.appendChild(cell);
-        //     }
-                    
-        // });
-
         let linha = document.createElement("tr");
         itens_produtos.appendChild(linha);
         
@@ -103,11 +98,12 @@ async function carregarProdutos() {
                 <img src="${produto.image_url}" alt="${produto.name}" <br>           
                 ${produto.name}<br>
                 R$ ${produto.price}<br>
-                <input type="number" min="0" value="0" data-id="${produto.id}" onchange="calcularTotal()"><br><br>
+                <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
+                <input type="number" min="0" value="0" data-id="${produto .id}" onchange="calcularTotal()"><br>
+                <button onclick="alterarQuantidade(${produto.id}, -1)">-</button><br><br>
             `;
             colunaAtual.appendChild(produtoInfo);
         });
-
 
     } catch (error) {
         console.error('Erro:', error);

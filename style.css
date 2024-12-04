@@ -62,7 +62,7 @@ td {
     inline-size: min-content;
     text-align: center;
     vertical-align: sub;
-    padding: 20px 10px 20px 20px;
+    padding: 20px 20px 20px 20px;
     background: #f3f3f3;
     border: 1px solid #ccc;
     border-radius: 10%, 10px;
@@ -83,13 +83,29 @@ td img {
 input[type="number"] {
     width: 200px;
     box-sizing: border-box; /* Inclui padding e borda na largura total */
-
+}
+/* .contador {
+    display: flex;
+    align-items: center;
+} */
+.botao {
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.quantidade {
+    width: 50px;
+    text-align: center;
 }
 
 table {
     margin: auto;
-    /* width: 100%; */
-    /* display: grid; */
+    width: 100%;
+    display: grid;
     grid-auto-columns: max-content;
     gap: 16px;
     justify-items: center;
