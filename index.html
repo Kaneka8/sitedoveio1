@@ -2,8 +2,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Veio da Havan site</title>
 </head>
 <body>
@@ -11,27 +11,36 @@
         <img src="./img/havanveio.png" alt="veiohavan" class="imagem-arredondada">
     </div>
     <h1>Gastando o dinheiro do Veio da Havan</h1>
-    <div style="background: #239c23; color: #fff; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 1;">
-        <h2 id="total">R$ 12.000.000.000.000</h2> <!-- Este é o total que será atualizado -->
-        <p id="mensagemErro" style="color: red; display: none;"></p> <!-- Mensagem de erro -->
+    <div class="info-fixa">
+        <h2 id="total">R$ 12.000.000.000.000</h2>
+        <p id="mensagemErro" style="color: red; display: none;"></p>
     </div>
 
-<div> 
-       <!-- Adicionando a tabela de produtos -->
-    <table id="itens_produtos"> 
-    <!-- \    style="width: 100%; margin-top: 20px; border-collapse: collapse;"> -->
-        <!-- <thead>
-            <tr>
+    <div>
+        <table id="itens_produtos" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+            <tbody>
+                <!-- Os produtos serão carregados aqui -->
+            </tbody>
+        </table>
+    </div>
 
-            </tr>
-        </thead> -->
-        <tbody>
-            <!-- Os produtos serão inseridos aqui -->
-        
-            
-            
-        </tbody>
-    </table>
-</div>
+    <div>
+        <table id="tabela_resumo" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>Total Gasto</th>
+                    <th>Quantidade de Produtos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="total_gasto">R$ 0,00</td>
+                    <td id="quantidade_produtos">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <script src="script.js"></script>
 </body>
+</html>
