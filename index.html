@@ -7,16 +7,19 @@
     <title>Veio da Havan site</title>
 </head>
 <body>
-    <img src="./img/havanveio.png" alt="veiohavan" class="imagem-arredondada">
+    <div class="imagem-container">
+        <img src="./img/havanveio.png" alt="veiohavan" class="imagem-arredondada">
+    </div>
     <h1>Gastando o dinheiro do Veio da Havan</h1>
-    <div style="background: #239c23; padding: 5px 50px; color: #fff; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 1;">
-        <h2 id="total">R$ 12.000.000.000</h2> <!-- Este é o total que será atualizado -->
+    <div style="background: #239c23; color: #fff; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 1;">
+        <h2 id="total">R$ 12.000.000.000.000</h2> <!-- Este é o total que será atualizado -->
         <p id="mensagemErro" style="color: red; display: none;"></p> <!-- Mensagem de erro -->
     </div>
 
-    <!-- Adicionando a tabela de produtos -->
+<div> 
+       <!-- Adicionando a tabela de produtos -->
     <table id="itens_produtos"> 
-        <!-- style="width: 100%; margin-top: 20px; border-collapse: collapse;"> -->
+    <!-- \    style="width: 100%; margin-top: 20px; border-collapse: collapse;"> -->
         <!-- <thead>
             <tr>
 
@@ -24,11 +27,11 @@
         </thead> -->
         <tbody>
             <!-- Os produtos serão inseridos aqui -->
-            
+        
             
             
         </tbody>
     </table>
-
+</div>
     <script src="script.js"></script>
 </body>
