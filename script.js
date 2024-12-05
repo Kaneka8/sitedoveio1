@@ -3,7 +3,7 @@ const totalElement = document.getElementById('total');
 const mensagemErroElement = document.getElementById('mensagemErro');
 const totalGastoElement = document.getElementById('total_gasto');
 const quantidadeProdutosElement = document.getElementById('quantidade_produtos');
-let total = 12000000000000; // Total inicial
+let total = 12000000000; // Total inicial
 let produtos = [];
 let totalGasto = 0;
 let quantidadeProdutos = 0;
@@ -24,32 +24,56 @@ async function carregarProdutos() {
     }
 }
 
-// Renderizar produtos no DOM
+// Renderizar produtos no DOM com 3 por linha
 function renderizarProdutos() {
     const itensProdutos = document.getElementById('itens_produtos').querySelector('tbody');
     itensProdutos.innerHTML = '';
 
-    produtos.forEach(produto => {
+    // Criar linhas com 3 produtos por linha
+    for (let i = 0; i < produtos.length; i += 3) {
         const linha = document.createElement('tr');
-        linha.innerHTML = `
-            <td><img src="${produto.image_url}" alt="${produto.name}" width="50"></td>
-            <td>${produto.name}</td>
-            <td>R$ ${produto.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
-            <td>
+
+        for (let j = 0; j < 3; j++) {
+            const produto = produtos[i + j];
+
+            const coluna = document.createElement('td');
+            if (produto) {
+                coluna.innerHTML = `
+            <div style="text-align: center;">
+                <img src="${produto.image_url}" alt="${produto.name}" width="160" height="160" style="display: block; margin: 0 auto;">
+                <p>${produto.name}</p>
+                <p>R$ ${produto.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
                 <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
-                <input type="number" value="0" min="0" data-id="${produto.id}" onchange="calcularTotal()">
+                <input type="number" value="0" min="0" data-id="${produto.id}" onchange="calcularTotal()" style="width: 50px; text-align: center;">
                 <button onclick="alterarQuantidade(${produto.id}, -1)">-</button>
-            </td>
-        `;
+            </div>
+                `;
+            }
+            linha.appendChild(coluna);
+        }
+
         itensProdutos.appendChild(linha);
-    });
+    }
 }
 
 // Alterar a quantidade de produtos
 function alterarQuantidade(produtoId, delta) {
     const input = document.querySelector(`input[data-id="${produtoId}"]`);
     let quantidade = parseInt(input.value) || 0;
+
+    // Localizar o produto
+    const produto = produtos.find(p => p.id == produtoId);
+    if (!produto) return;
+
+    // Calcular o valor máximo possível para este produto
+    const maxQuantidadePossivel = Math.floor((total - totalGasto) / produto.price);
+
+    // Atualizar a quantidade com limite (não pode ser negativa ou exceder o máximo)
     quantidade = Math.max(0, quantidade + delta);
+    if (quantidade > maxQuantidadePossivel) {
+        quantidade = maxQuantidadePossivel; // Limita ao máximo possível
+    }
+
     input.value = quantidade;
     calcularTotal();
 }
@@ -61,7 +85,7 @@ function calcularTotal() {
     let quantidadeTemp = 0;
 
     inputs.forEach(input => {
-        const quantidade = parseInt(input.value) || 0;
+        const quantidade = Math.max(0, parseInt(input.value) || 0); // Garante que não seja negativo
         const produtoId = input.dataset.id;
         const produto = produtos.find(p => p.id == produtoId);
 
@@ -71,19 +95,13 @@ function calcularTotal() {
         }
     });
 
-    if (totalGastosTemp > total) {
-        mensagemErroElement.textContent = "Você não pode gastar mais do que o total disponível!";
-        mensagemErroElement.style.display = 'block';
-    } else {
-        mensagemErroElement.style.display = 'none';
-        totalGasto = totalGastosTemp;
-        quantidadeProdutos = quantidadeTemp;
+    totalGasto = totalGastosTemp;
+    quantidadeProdutos = quantidadeTemp;
 
-        totalElement.textContent = `R$ ${(total - totalGasto).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-        totalGastoElement.textContent = `R$ ${totalGasto.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-        quantidadeProdutosElement.textContent = quantidadeProdutos;
-    }
+    // Atualizar o total restante
+    totalElement.textContent = `R$ ${(total - totalGasto).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    totalGastoElement.textContent = `R$ ${totalGasto.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    quantidadeProdutosElement.textContent = quantidadeProdutos;
 }
-
 // Inicializar a página
 window.onload = carregarProdutos;
