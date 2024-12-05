@@ -21,7 +21,7 @@ function renderizarProdutos() {
             <div>
                 <span>${produto.name} - R$ ${produto.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                 <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
-                <input type="number" data-id="${produto.id}" min="0" placeholder="Quantidade" value="0">
+                <input type="string" data-id="${produto.id}" min="0" placeholder="Quantidade" value="0">
                 <button onclick="alterarQuantidade(${produto.id}, -1)">-</button>
             </div>
         `;
@@ -29,7 +29,7 @@ function renderizarProdutos() {
     });
 
     // Adicionar eventos para atualizar o total
-    document.querySelectorAll('input[type="number"]').forEach(input => {
+    document.querySelectorAll('input[type="string"]').forEach(input => {
         input.addEventListener('input', calcularTotal);
     });
 }
@@ -45,10 +45,21 @@ function alterarQuantidade(produtoId, delta) {
 
 // Calcular o total gasto
 function calcularTotal() {
-    const inputs = document.querySelectorAll('input[type="number"]');
+    const inputs = document.querySelectorAll('input[type="string"]');
     let totalGastos = 0;
 
     inputs.forEach(input => {
+        // Adiciona um evento de input para validar o valor
+        input.addEventListener('input', () => {
+            // Converte o valor para um número inteiro
+            let quantidade = parseInt(input.value) || 0;
+            // Se a quantidade for negativa, ajusta para 0
+            if (quantidade < 0) {
+                quantidade = 0;
+                input.value = quantidade; // Atualiza o valor do input
+            }
+        });
+
         const quantidade = parseInt(input.value) || 0;
         const produtoId = input.dataset.id;
         const produto = produtos.find(p => p.id == produtoId);
@@ -60,13 +71,12 @@ function calcularTotal() {
     if (totalGastos > total) {
         mensagemErroElement.textContent = "Você não pode gastar mais do que o total disponível!";
         mensagemErroElement.style.display = 'block';
-        totalGastos = 0;
-        inputs.forEach(input => (input.value = 0));
     } else {
         mensagemErroElement.style.display = 'none';
     }
 
     totalElement.textContent = `R$ ${(total - totalGastos).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
 }
 
 // Função para carregar os produtos da API
@@ -99,7 +109,7 @@ async function carregarProdutos() {
                 ${produto.name}<br>
                 R$ ${produto.price}<br>
                 <button onclick="alterarQuantidade(${produto.id}, 1)">+</button>
-                <input type="number" min="0" value="0" data-id="${produto .id}" onchange="calcularTotal()"><br>
+                <input type="string" min="0" value="0" data-id="${produto .id}" onchange="calcularTotal()">
                 <button onclick="alterarQuantidade(${produto.id}, -1)">-</button><br><br>
             `;
             colunaAtual.appendChild(produtoInfo);
