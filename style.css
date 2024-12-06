@@ -1,22 +1,29 @@
-.imagem-arredondada { 
-     width: 200px; /*Ajuste o tamanho conforme necessário*/ 
-     height: 200px; /*Ajuste o tamanho conforme necessário */
-     border-radius: 20px; /*Para deixar arredondada */
-     object-fit: cover; /*Para manter a proporção da imagem*/ 
-     margin: 10px 0; /*Espaço acima e abaixo da imagem */ 
-     top: 20px; /*Distância que a imagem vai descer */
-    padding-bottom: 30px;
-    z-index: 0; margin-top: 80px;
-} 
+.grid-container {
+    margin: 20px 0;
+}
+
+.imagem-arredondada {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin: 10px 0;
+}
 
 .imagem-container {
     display: flex;
-    align-items: center;
     justify-content: center;
+    margin-top: 65px;
 }
 
-p {
-    text-transform: capitalize;
+.info-fixa {
+    background: #239c23;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
 }
 
 h1 {
@@ -27,92 +34,82 @@ h2 {
     text-align: center;
 }
 
-.contador {
-    /* padding-left: 130px; 
-    padding-bottom: 100px; */
-    margin: 0 auto; /* Centraliza horizontalmente */
-    padding-bottom: 30px; /* Mantém o padding inferior */
-    text-align: center; /* Centraliza o texto dentro do elemento, se necessário */
-    width: fit-content; /* Ajusta a largura do elemento ao conteúdo, se necessário */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
 }
 
-img { 
-    width: 195px;  /* Tamanho da imagem */
-    height: auto;
-    /* padding-left: 50px;  */
-    object-fit: cover;
-    padding-top: 10px;
-    /*border-radius: 50%;  /* Arredondar a imagem */
-    position: relative;
-}
-
-div{
-    align-items: center;
-}
-
-.grid-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Ocupa toda a altura da tela */
-}
-
-
-td {
-    inline-size: min-content;
-    text-align: center;
-    vertical-align: sub;
-    padding: 20px 20px 20px 20px;
-    background: #f3f3f3;
+td, th {
     border: 1px solid #ccc;
-    border-radius: 10%, 10px;
-    display: flex
-;
-    justify-content: center;
-    align-items: flex-end;
-
-}
-
-td img {
-    
-    display: block;
-    margin-left: 100px;
-    margin-right: 100px;
-}
-
-input[type="string"] {
-    /* width: 200px; */
-    box-sizing: border-box; /* Inclui padding e borda na largura total */
-}
-/* .contador {
-    display: flex;
-    align-items: center;
-} */
-.button {
-    cursor: pointer;
     padding: 10px;
-    margin: 10px;
+    text-align: center;
+}
+
+input[type="number"] {
+    width: 50px;
+    text-align: center;
+}
+
+button {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 5px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
 }
-.quantidade {
-    width: 50px;
+
+body {
+    margin: 0;
+}
+
+/* Estilo Responsivo */
+@media (max-width: 768px) {
+    #itens_produtos img {
+        width: 100%;
+    }
+
+    #itens_produtos td {
+        display: block;
+        width: 100%;
+    }
+
+    #itens_produtos tr {
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+#resumo-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#tabela_resumo {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#tabela_resumo th {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+#tabela_resumo td, #tabela_resumo th {
+    padding: 10px;
+    border: 1px solid #ccc;
     text-align: center;
 }
 
-table {
-    margin: auto;
-    width: 100%;
-    height: 100vh;
-    display: grid;
-    grid-auto-columns: max-content;
-    gap: 16px;
-    justify-items: center;
-    padding: 50px;
-    box-sizing: content-box;
-    align-content: center;
-    grid-auto-flow: row;
+#tabela_resumo tfoot {
+    background-color: #e9ecef;
+    font-weight: bold;
 }
-
