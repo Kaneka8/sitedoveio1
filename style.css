@@ -81,3 +81,35 @@ body {
         margin-bottom: 20px;
     }
 }
+#resumo-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#tabela_resumo {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#tabela_resumo th {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+#tabela_resumo td, #tabela_resumo th {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#tabela_resumo tfoot {
+    background-color: #e9ecef;
+    font-weight: bold;
+}

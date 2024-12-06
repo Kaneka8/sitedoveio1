@@ -24,22 +24,29 @@
         </table>
     </div>
 
-    <div>
-        <table id="tabela_resumo">
+    <div id="resumo-container" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+        <table id="tabela_resumo" style="width: 100%; margin-top: 20px; border-collapse: collapse; flex: 1 1 300px; min-width: 300px;">
             <thead>
                 <tr>
-                    <th>Total Gasto</th>
-                    <th>Quantidade de Produtos</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Subtotal</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td id="total_gasto">R$ 0,00</td>
-                    <td id="quantidade_produtos">0</td>
-                </tr>
+                <!-- Detalhes dos produtos -->
             </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" style="text-align: right;">Valor Gasto:</th>
+                    <th id="total_gasto">R$ 0,00</th>
+                </tr>
+            </tfoot>
         </table>
     </div>
+        
+    
 
     <script src="script.js"></script>
 </body>

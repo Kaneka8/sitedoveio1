@@ -81,27 +81,49 @@ function alterarQuantidade(produtoId, delta) {
 // Calcular total gasto e atualizar resumo
 function calcularTotal() {
     const inputs = document.querySelectorAll('input[type="number"]');
+    const tabelaResumoBody = document.getElementById('tabela_resumo').querySelector('tbody');
     let totalGastosTemp = 0;
     let quantidadeTemp = 0;
+
+    // Limpa a tabela de resumo antes de adicionar novos dados
+    tabelaResumoBody.innerHTML = '';
 
     inputs.forEach(input => {
         const quantidade = Math.max(0, parseInt(input.value) || 0); // Garante que não seja negativo
         const produtoId = input.dataset.id;
         const produto = produtos.find(p => p.id == produtoId);
 
-        if (produto) {
-            totalGastosTemp += produto.price * quantidade;
+        if (produto && quantidade > 0) {
+            const subtotal = produto.price * quantidade;
+
+            // Atualiza os valores temporários
+            totalGastosTemp += subtotal;
             quantidadeTemp += quantidade;
+
+            // Adiciona o produto na tabela de resumo
+            const linhaResumo = document.createElement('tr');
+            linhaResumo.innerHTML = `
+                <td>${produto.name}</td>
+                <td>${quantidade}</td>
+                <td>R$ ${produto.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                <td>R$ ${subtotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+            `;
+            tabelaResumoBody.appendChild(linhaResumo);
         }
     });
 
-    totalGasto = totalGastosTemp;
-    quantidadeProdutos = quantidadeTemp;
+    // Ajustar automaticamente os valores se o total ultrapassar o orçamento
+    if (totalGastosTemp > total) {
+        ajustarInputsParaTotalRestante(inputs);
+    } else {
+        totalGasto = totalGastosTemp;
+        quantidadeProdutos = quantidadeTemp;
 
-    // Atualizar o total restante
-    totalElement.textContent = `R$ ${(total - totalGasto).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-    totalGastoElement.textContent = `R$ ${totalGasto.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-    quantidadeProdutosElement.textContent = quantidadeProdutos;
+        // Atualiza o DOM
+        totalElement.textContent = `R$ ${(total - totalGasto).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+        totalGastoElement.textContent = `R$ ${totalGasto.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+        quantidadeProdutosElement.textContent = quantidadeProdutos;
+    }
 }
 // Inicializar a página
 window.onload = carregarProdutos;
